@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import NavBar from "./navbar";
 
 class MainComonent extends Component {
     state = {};
 
     render() {
         return (
-            <div className="container"></div>
+            <React.Fragment>
+                <NavBar />
+            </React.Fragment>
         );
     }
 }
