@@ -1,0 +1,34 @@
+Datastructure
+
+Users
+    _id
+    name
+    email
+    mobile
+    username
+    password
+    dob
+    createdOn
+    updatedOn
+    uuid/v4 forgotcode - link baseurl/user/reset/:email/:code
+
+Posts
+    _id
+    title
+    urls: []
+    by (user {_id, name, email})
+    timing
+    type - public/private
+    likes - [{_id, name, type }]
+
+Comments - 16 mb
+    _id 
+    post_id
+    comments [
+        {
+            by,
+            comment,
+            timing
+        }
+    ]
+    count: 50
