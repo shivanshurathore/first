@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import "./components/inputDD/style.css";
 import { BrowserRouter } from "react-router-dom";
-import MainComponent from "./components/w3schools/mainComponent";
+import MainComponent from "./components/inputDD/inputDD";
 
 ReactDOM.render(
   <React.StrictMode>

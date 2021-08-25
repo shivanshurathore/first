@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import http from '../services/httpService';
+import http from '../../services/httpService';
 
 class SignUp extends Component {
     state = {

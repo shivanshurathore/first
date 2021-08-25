@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import http from '../services/httpService';
-import auth from '../services/authService';
+import http from '../../services/httpService';
+import auth from '../../services/authService';
 
 class Login extends Component {
     state = {
