@@ -4,9 +4,9 @@ import "./index.css";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 // import "bootstrap/dist/css/bootstrap.min.css";
-import "./components/inputDD/style.css";
+import "./components/game/style.css";
 import { BrowserRouter } from "react-router-dom";
-import MainComponent from "./components/inputDD/inputDD";
+import MainComponent from "./components/game/mainComponent";
 
 ReactDOM.render(
   <React.StrictMode>

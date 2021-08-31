@@ -1,0 +1,22 @@
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    column-count: 4;
+}
+
+button{
+    height: 120px;
+    width: 120px;
+    background-color: #009ffd;
+    border: none;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+img{
+    height: 120px;
+    width: 120px;
+    border-radius: 20px;
+    display: block;
+    margin: -6px;
+}
