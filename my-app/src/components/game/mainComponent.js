@@ -30,6 +30,7 @@ class MainComponent extends Component {
     ],
     open1: "",
     open2: "",
+    score: 0,
   };
 
   showImg = (index) => {
@@ -47,6 +48,7 @@ class MainComponent extends Component {
     if (s1.open1 === s1.open2) {
       s1.open1 = "";
       s1.open2 = "";
+      s1.score += 1;
     }
     if (s1.open1 !== s1.open2) {
       let index1 = s1.dataArr.findIndex(
@@ -61,6 +63,7 @@ class MainComponent extends Component {
       s1.open2 = "";
     }
     this.setState(s1);
+    setTimeout(() => this.checkWin(), 1000);
   };
 
   resetGame = () => {
@@ -68,17 +71,29 @@ class MainComponent extends Component {
     for (let i = 0; i < s1.dataArr.length; i++) {
       s1.dataArr[i].open = false;
     }
+    s1.score = 0;
+    this.setState(s1);
+  };
+
+  checkWin = () => {
+    let s1 = { ...this.state };
+    if (s1.score === 8) {
+      alert("You Win!");
+      this.resetGame();
+      s1.score = 0;
+    }
     this.setState(s1);
   };
 
   render() {
-    const { dataArr } = this.state;
+    const { dataArr, open1, open2, score } = this.state;
 
     return (
       <div className="main">
         <div className="btnDiv">
           {dataArr.map((item, index) => (
             <button
+              disabled={item.open || (open1 && open2) ? true : false}
               className="btn1"
               key={item}
               onClick={() => this.showImg(index)}
@@ -88,6 +103,7 @@ class MainComponent extends Component {
             </button>
           ))}
         </div>
+        <h4>Your Score: {score}</h4>
         <button className="resetBtn" onClick={this.resetGame}>
           Reset Game
         </button>
