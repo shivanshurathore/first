@@ -75,18 +75,17 @@ class MainComponent extends Component {
     s1.open1 = "";
     s1.open2 = "";
     s1.score = 0;
+    s1.hint = 3;
     this.shuffleArray();
     this.setState(s1);
   };
 
   checkWin = () => {
-    let s1 = { ...this.state };
-    if (s1.score === 8) {
+    let score = this.state.score;
+    if (score === 80) {
       alert("You Win!");
       this.resetGame();
-      s1.score = 0;
     }
-    this.setState(s1);
   };
 
   componentDidMount() {
@@ -94,7 +93,7 @@ class MainComponent extends Component {
   }
 
   shuffleArray = () => {
-    let dataArr = { ...this.state.dataArr };
+    let dataArr = this.state.dataArr;
     for (var i = dataArr.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var temp = dataArr[i];
