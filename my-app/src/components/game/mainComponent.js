@@ -31,6 +31,7 @@ class MainComponent extends Component {
     open1: "",
     open2: "",
     score: 0,
+    hint: 3,
   };
 
   showImg = (index) => {
@@ -39,7 +40,7 @@ class MainComponent extends Component {
     s1.open1
       ? (s1.open2 = s1.dataArr[index].image)
       : (s1.open1 = s1.dataArr[index].image);
-    if (s1.open1 && s1.open2) setTimeout(() => this.doCellsMatching(), 1000);
+    if (s1.open1 && s1.open2) setTimeout(() => this.doCellsMatching(), 100);
     this.setState(s1);
   };
 
@@ -63,7 +64,7 @@ class MainComponent extends Component {
       s1.open2 = "";
     }
     this.setState(s1);
-    setTimeout(() => this.checkWin(), 1000);
+    setTimeout(() => this.checkWin(), 100);
   };
 
   resetGame = () => {
@@ -71,7 +72,10 @@ class MainComponent extends Component {
     for (let i = 0; i < s1.dataArr.length; i++) {
       s1.dataArr[i].open = false;
     }
+    s1.open1 = "";
+    s1.open2 = "";
     s1.score = 0;
+    this.shuffleArray();
     this.setState(s1);
   };
 
@@ -85,27 +89,68 @@ class MainComponent extends Component {
     this.setState(s1);
   };
 
+  componentDidMount() {
+    this.shuffleArray();
+  }
+
+  shuffleArray = () => {
+    let s1 = { ...this.state };
+    for (var i = s1.dataArr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = s1.dataArr[i];
+      s1.dataArr[i] = s1.dataArr[j];
+      s1.dataArr[j] = temp;
+    }
+  };
+
+  handleHint = () => {
+    let dataArr = this.state.dataArr;
+    for (let i = 0; i < dataArr.length; i++) {
+      dataArr[i].open = true;
+    }
+    setTimeout(() => this.hideAllImg(), 800);
+
+    this.setState({
+      dataArr,
+      hint: this.state.hint - 1,
+    });
+  };
+
+  hideAllImg = () => {
+    let s1 = { ...this.state };
+    for (let i = 0; i < s1.dataArr.length; i++) {
+      s1.dataArr[i].open = false;
+    }
+    this.setState(s1);
+  };
+
   render() {
-    const { dataArr, open1, open2, score } = this.state;
+    const { dataArr, open1, open2, score, hint } = this.state;
 
     return (
       <div className="main">
         <div className="btnDiv">
           {dataArr.map((item, index) => (
             <button
-              disabled={item.open || (open1 && open2) ? true : false}
+              disabled={item.open || (open1 && open2)}
               className="btn1"
               key={item}
               onClick={() => this.showImg(index)}
             >
-              {/* <img src={item.image} alt="animals" /> */}
               {item.open ? <img src={item.image} alt="animals" /> : ""}
             </button>
           ))}
         </div>
         <h4>Your Score: {score}</h4>
-        <button className="resetBtn" onClick={this.resetGame}>
+        <button className="btn2" onClick={this.resetGame}>
           Reset Game
+        </button>
+        <button
+          className="btn2"
+          onClick={this.handleHint}
+          disabled={hint === 0}
+        >
+          Hint {hint}
         </button>
       </div>
     );
