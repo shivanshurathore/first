@@ -19,6 +19,12 @@
     margin: 5px;
 }
 
+.btn1:focus {
+    background-color: #009ffd;
+    border-radius: 20px;
+    border: none;
+}
+
 img {
     height: 120px;
     width: 120px;
