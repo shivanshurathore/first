@@ -35,11 +35,15 @@ class MainComponent extends Component {
 
     return (
       <div className="main">
-        {dataArr.map((item) => (
-          <button key={item}>
-            <img src={item.image} alt="animals" />
-          </button>
-        ))}
+        <div className="btnDiv">
+          {dataArr.map((item) => (
+            <button className="btn1" key={item}>
+              {/* <img src={item.image} alt="animals" /> */}
+              {item.open ? <img src={item.image} alt="animals" /> : ""}
+            </button>
+          ))}
+        </div>
+        <button className="resetBtn">Reset Game</button>
       </div>
     );
   }

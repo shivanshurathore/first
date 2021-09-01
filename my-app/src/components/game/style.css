@@ -1,10 +1,16 @@
 .main {
-    display: flex;
-    flex-wrap: wrap;
-    column-count: 4;
+    text-align: center;
 }
 
-button{
+.btnDiv {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+.btn1 {
     height: 120px;
     width: 120px;
     background-color: #009ffd;
@@ -13,10 +19,98 @@ button{
     margin: 5px;
 }
 
-img{
+img {
     height: 120px;
     width: 120px;
     border-radius: 20px;
     display: block;
     margin: -6px;
+}
+
+.resetBtn {
+    background-color: #009ffd;
+    border: none;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 2px 10px;
+    margin: 10px;
+}
+
+@media only screen and (max-width: 349px) {
+    .btnDiv {
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    .btn1, img {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media only screen and (min-width: 350px) and (max-width: 437px) {
+    .btnDiv {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .btn1, img {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media only screen and (min-width: 438px) and (max-width: 530px) {
+    .btnDiv {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .btn1, img {
+        height: 75px;
+        width: 75px;
+    }
+}
+
+@media only screen and (min-width: 531px) and (max-width: 624px) {
+    .btnDiv {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .btn1, img {
+        height: 90px;
+        width: 90px;
+    }
+}
+
+@media only screen and (min-width: 624px) and (max-width: 749px) {
+    .btnDiv {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .btn1, img {
+        height: 110px;
+        width: 110px;
+    }
+}
+
+@media only screen and (min-width: 749px) and (max-width: 928px) {
+    .btnDiv {
+        padding-left: 15%;
+        padding-right: 15%;
+    }
+    
+}
+
+@media only screen and (min-width: 928px) and (max-width: 1120px) {
+    .btnDiv {
+        padding-left: 21%;
+        padding-right: 21%;
+    }
+    
+}
+
+@media only screen and (min-width: 1120px) and (max-width: 1300px) {
+    .btnDiv {
+        padding-left: 25%;
+        padding-right: 25%;
+    }
+    
 }
