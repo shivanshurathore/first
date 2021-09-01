@@ -49,7 +49,7 @@ class MainComponent extends Component {
     if (s1.open1 === s1.open2) {
       s1.open1 = "";
       s1.open2 = "";
-      s1.score += 1;
+      s1.score += 10;
     }
     if (s1.open1 !== s1.open2) {
       let index1 = s1.dataArr.findIndex(
@@ -94,12 +94,12 @@ class MainComponent extends Component {
   }
 
   shuffleArray = () => {
-    let s1 = { ...this.state };
-    for (var i = s1.dataArr.length - 1; i > 0; i--) {
+    let dataArr = { ...this.state.dataArr };
+    for (var i = dataArr.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
-      var temp = s1.dataArr[i];
-      s1.dataArr[i] = s1.dataArr[j];
-      s1.dataArr[j] = temp;
+      var temp = dataArr[i];
+      dataArr[i] = dataArr[j];
+      dataArr[j] = temp;
     }
   };
 
@@ -109,7 +109,6 @@ class MainComponent extends Component {
       dataArr[i].open = true;
     }
     setTimeout(() => this.hideAllImg(), 800);
-
     this.setState({
       dataArr,
       hint: this.state.hint - 1,
