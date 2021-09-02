@@ -28,6 +28,7 @@ class MainComponent extends Component {
       { image: dog, open: false },
       { image: monkey, open: false },
     ],
+    deepCopy: [],
     open1: "",
     open2: "",
     score: 0,
@@ -40,7 +41,7 @@ class MainComponent extends Component {
     s1.open1
       ? (s1.open2 = s1.dataArr[index].image)
       : (s1.open1 = s1.dataArr[index].image);
-    if (s1.open1 && s1.open2) setTimeout(() => this.doCellsMatching(), 100);
+    if (s1.open1 && s1.open2) setTimeout(() => this.doCellsMatching(), 600);
     this.setState(s1);
   };
 
@@ -88,9 +89,9 @@ class MainComponent extends Component {
     }
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.shuffleArray();
-  }
+  };
 
   shuffleArray = () => {
     let dataArr = this.state.dataArr;
@@ -103,23 +104,19 @@ class MainComponent extends Component {
   };
 
   handleHint = () => {
-    let dataArr = this.state.dataArr;
-    for (let i = 0; i < dataArr.length; i++) {
-      dataArr[i].open = true;
-    }
-    setTimeout(() => this.hideAllImg(), 800);
-    this.setState({
-      dataArr,
-      hint: this.state.hint - 1,
-    });
+    const dataArr = JSON.parse(JSON.stringify(this.state.dataArr));
+    this.showAllImg(this.state.dataArr);
+    setTimeout(
+      () => this.setState({ dataArr: dataArr, hint: this.state.hint - 1 }),
+      1000
+    );
   };
 
-  hideAllImg = () => {
-    let s1 = { ...this.state };
-    for (let i = 0; i < s1.dataArr.length; i++) {
-      s1.dataArr[i].open = false;
+  showAllImg = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].open = true;
     }
-    this.setState(s1);
+    this.setState({ dataArr: arr });
   };
 
   render() {
@@ -132,7 +129,7 @@ class MainComponent extends Component {
             <button
               disabled={item.open || (open1 && open2)}
               className="btn1"
-              key={item}
+              key={index}
               onClick={() => this.showImg(index)}
             >
               {item.open ? <img src={item.image} alt="animals" /> : ""}
