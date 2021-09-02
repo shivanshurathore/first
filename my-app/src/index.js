@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/game/style.css";
 import { BrowserRouter } from "react-router-dom";
-import MainComponent from "./components/game/mainComponent";
+import MainComponent from "./components/login_signupForm/mainComponent";
 
 ReactDOM.render(
   <React.StrictMode>

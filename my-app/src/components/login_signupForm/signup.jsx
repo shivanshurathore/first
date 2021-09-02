@@ -17,13 +17,13 @@ class SignUp extends Component {
         e.preventDefault();
         let s1 = { ...this.state };
         console.log(s1.person);
-        this.postData("/person", s1.person);
+        this.postData("/employee", s1.person);
     }
 
     async postData(url, obj) {
-        let response = http.post(url, obj);
-        // let { data } = response;
-        console.log(response);
+        let response = await http.post(url, obj);
+        let { data } = response;
+        console.log(data);
         this.props.history.push("/login");
     }
 
