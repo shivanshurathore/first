@@ -13,11 +13,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-// MongoClient.connect(url, (err, db) => {
-//   if (err) throw err;
-//   console.log("Database created!");
-//   //   db.close();
-// });
+const port = 2410;
+app.listen(`listining to port ${port}`);
 
 app.get("/createCollection", function (req, res) {
   MongoClient.connect(url, function (err, db) {
@@ -69,6 +66,14 @@ app.get("/employee", (req, res) => {
       });
   });
 });
+
+// // // // // // for learning purpose example // // // // // //
+
+// MongoClient.connect(url, (err, db) => {
+//   if (err) throw err;
+//   console.log("Database created!");
+//   //   db.close();
+// });
 
 app.post("/customer", (req, res) => {
   MongoClient.connect(url, function (err, db) {
@@ -129,7 +134,3 @@ app.get("/customer", (req, res) => {
       });
   });
 });
-
-const port = 2410;
-
-app.listen(port);
