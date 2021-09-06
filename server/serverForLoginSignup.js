@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const port = 2410;
-app.listen(`listining to port ${port}`);
+app.listen(console.log(`listining to port ${port}`), port);
 
 app.get("/createCollection", function (req, res) {
   MongoClient.connect(url, function (err, db) {
