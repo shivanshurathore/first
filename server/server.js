@@ -13,10 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+app.use(express.static("./uploads"));
+
 app.use(cors());
 
 const port = 2410;
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server Running! on port ${port}`);
+});
 
 app.get("/createCollection", function (req, res) {
   MongoClient.connect(url, function (err, db) {
@@ -38,8 +42,14 @@ app.get("/createCollection", function (req, res) {
 });
 
 app.post("/employee", upload.single("image"), (req, res) => {
-  let empObj = req.body;
-  console.log(req.file);
+  let empObj = {
+    name: req.body.name,
+    age: req.body.age,
+    email: req.body.email,
+    password: req.body.password,
+    image: req.file.filename,
+  };
+  // console.log(req.file);
 
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;
