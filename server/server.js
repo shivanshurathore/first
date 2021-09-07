@@ -56,7 +56,7 @@ app.post("/employee", upload.single("image"), (req, res) => {
     const dbo = db.db("mydb");
     dbo.collection("employees").insertOne(empObj, function (err, result) {
       if (err) throw err;
-      res.send("1 employee inserted");
+      res.send(empObj);
       db.close();
     });
   });
