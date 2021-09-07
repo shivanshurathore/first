@@ -4,6 +4,8 @@ const MongoClient = require("mongodb").MongoClient;
 const url = "mongodb://localhost:27017/mydb";
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const multer = require("multer");
+const upload = multer({ dest: "./uploads" });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,9 +37,9 @@ app.get("/createCollection", function (req, res) {
   });
 });
 
-app.post("/employee", (req, res) => {
+app.post("/employee", upload.single("image"), (req, res) => {
   let empObj = req.body;
-  // console.log(req.body);
+  console.log(req.file);
 
   MongoClient.connect(url, function (err, db) {
     if (err) throw err;

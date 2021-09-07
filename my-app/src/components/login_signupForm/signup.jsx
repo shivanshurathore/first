@@ -3,7 +3,7 @@ import http from "../../services/httpService";
 
 class SignUp extends Component {
   state = {
-    person: { name: "", age: 0, email: "", password: "", file: null },
+    person: { name: "", age: 0, email: "", password: "", image: null },
   };
 
   handleChange = (e) => {
@@ -18,10 +18,16 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let person = { ...this.state.person };
-    console.log(e.target);
-    const forData = new FormData(e.target);
-    console.log(forData);
-    this.postData("/employee", person);
+    // console.log(person);
+    const formData = new FormData();
+    formData.append("image", person.image);
+    formData.set("name", person.name);
+    formData.set("age", person.age);
+    formData.set("email", person.email);
+    formData.set("password", person.password);
+    console.log(formData);
+
+    this.postData("/employee", formData);
   };
 
   async postData(url, obj) {
@@ -89,14 +95,19 @@ class SignUp extends Component {
               <label>Image</label>
               <input
                 type="file"
-                name="file"
+                name="image"
                 className="form-control"
                 onChange={this.handleChange}
               />
             </div>
-            <button className="btn btn-primary m-3" onClick={this.handleSubmit}>
+            <input
+              type="submit"
+              value="Submit"
+              className="btn btn-primary m-3"
+            />
+            {/* <button className="btn btn-primary m-3" onClick={this.handleSubmit}>
               Submit
-            </button>
+            </button> */}
             <button className="btn btn-primary m-3" onClick={this.showSignIn}>
               Sign In
             </button>
