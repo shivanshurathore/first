@@ -7,7 +7,7 @@ function get(url) {
 }
 
 function post(url, obj) {
-  console.log(baseURL + url, obj);
+  // console.log(baseURL + url, obj);
   return axios.post(baseURL + url, obj);
 }
 

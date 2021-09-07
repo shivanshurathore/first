@@ -1,0 +1,172 @@
+Replica Set - a few connected machines that store the same data to ensure that if something happens to one of the machines the data will remain intact. Comes from the word replicate - to copy something.
+
+Instance - a single machine locally or in the cloud, running a certain software, in our case it is the MongoDB database.
+
+Cluster - group of servers that store your data.
+---***---
+
+The following 10 easy steps will guide you in creating:
+an Atlas Organization named MDBU
+a Project within MDBU called M001
+a Free Tier Atlas cluster named Sandbox
+
+Allow Access from Anywhere
+ip- 000/0
+
+username: m001-student
+password: m001-mongodb-basics
+---***---
+
+to import and export data
+mongodump --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"
+
+mongoexport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --collection=sales --out=sales.json
+
+mongorestore --uri "mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies"  --drop dump
+
+mongoimport --uri="mongodb+srv://<your username>:<your password>@<your cluster>.mongodb.net/sample_supplies" --drop sales.json
+---***---
+
+Namespace - The concatenation of the database name and collection name is called a namespace.
+---***---
+
+connect to Atlas Cluster:
+mongo "mongodb+srv://<username>:<password>@<cluster>.mongodb.net/admin"
+
+show dbs
+show collections
+use db_name
+
+it(iterates) -> it iterates through the cursor.
+cursor - A pointer to a result set of a query.
+pointer - A direct address of the memory location. 
+
+show dbs
+use sample_training
+show collections
+
+db.zips.find({"state": "NY"})
+db.zips.find({"state": "NY"}).count()
+db.zips.find({"state": "NY", "city": "ALBANY"})
+db.zips.find({"state": "NY", "city": "ALBANY"}).pretty()
+
+find() -> returns a cursor with documents that match the find query
+count() -> returns the number of documents that match the find query
+pretty() ->  formats the documents in the cursor
+---***---
+
+"_id" -> unique identifier for a document in a collection.
+	It is required in every MongoDB document.
+ObjectId() is the default value for the "_id" field unless otherwise specified.
+---***---
+
+db.inspections.findOne();
+db.inspections.insert({
+      "_id" : ObjectId("56d61033a378eccde8a8354f"),
+      "id" : "10021-2015-ENFO",
+      "certificate_number" : 9278806,
+      "business_name" : "ATLIXCO DELI GROCERY INC.",
+      "date" : "Feb 20 2015",
+      "result" : "No Violation Issued",
+      "sector" : "Cigarette Retail Dealer - 127",
+      "address" : {
+              "city" : "RIDGEWOOD",
+              "zip" : 11385,
+              "street" : "MENAHAN ST",
+              "number" : 1712
+         }
+  })
+
+db.inspections.insert({
+      "id" : "10021-2015-ENFO",
+      "certificate_number" : 9278806,
+      "business_name" : "ATLIXCO DELI GROCERY INC.",
+      "date" : "Feb 20 2015",
+      "result" : "No Violation Issued",
+      "sector" : "Cigarette Retail Dealer - 127",
+      "address" : {
+              "city" : "RIDGEWOOD",
+              "zip" : 11385,
+              "street" : "MENAHAN ST",
+              "number" : 1712
+         }
+  })
+
+db.inspections.find({"id" : "10021-2015-ENFO", "certificate_number" : 9278806}).pretty()
+
+Identical documents can exist in the same collection as long as their _id values are different.
+---***---
+
+Insert three test documents:
+db.inspections.insert([ { "test": 1 }, { "test": 2 }, { "test": 3 } ])
+
+Insert three test documents but specify the _id values:
+db.inspections.insert([{ "_id": 1, "test": 1 },{ "_id": 1, "test": 2 },
+                       { "_id": 3, "test": 3 }])
+                       
+Find the documents with _id: 1
+db.inspections.find({ "_id": 1 })
+
+Insert multiple documents specifying the _id values, and using the "ordered": false option.
+db.inspections.insert([{ "_id": 1, "test": 1 },{ "_id": 1, "test": 2 },
+                       { "_id": 3, "test": 3 }],{ "ordered": false })
+                       
+Insert multiple documents with _id: 1 with the default "ordered": true setting
+db.inspection.insert([{ "_id": 1, "test": 1 },{ "_id": 3, "test": 3 }])
+---***---
+
+Update
+
+{"$inc": {"pop": 10, "<field2>": <increment value>, ... }}
+	increment field value by a specified amount.
+{"$set": {"pop": 17630, "<field2>": <new value>, ... }}
+	sets field value to a new value
+{"push": { <field1>: <value1> , ... }}
+	adds an element to an array field.
+
+db.zips.updateMany({ "city": "HUDSON" }, { "$inc": { "pop": 10 } })
+db.zips.updateOne({ "zip": "12534" }, { "$set": { "pop": 17630 } })
+db.grades.updateOne({ "student_id": 250, "class_id": 339 },
+                    { "$push": { "scores": { "type": "extra credit",
+                                             "score": 100 }
+                                }
+                     })
+---***---
+
+Deleting Data
+
+db.<collection>.drop() 
+	deleted the given collection
+deleteOne(), deleteMany() deletes documents that match a given query
+After these commands is issued the data is GONE.
+
+removing all collections in a database also remove the database.
+---***---
+
+Query operators provide additional ways to locate data within the database
+Comparison operators specifically allow us to find data within a certain range.
+{ <field>: { <operator>: <value> } }
+$eq is used as the default operator when an operator is not specified.
+---***---
+
+Logical Operators
+$and -> match all of the specified query clauses
+$or -> at least one of the query clauses is matched
+$nor -> fail to match both given clauses
+$not -> negates the query requirement
+
+{<operator> : [{statement1}, {statement2}, ...]}
+{$not: {statement}}
+
+$and is used as the default operator when an operator is not specified
+Explicitly use $and when you need to include the same operator more than once in a query.
+
+db.routes.find({ "$and": [ { "$or" :[ { "dst_airport": "KZN" },
+                                    { "src_airport": "KZN" }
+                                  ] },
+                          { "$or" :[ { "airplane": "CR2" },
+                                     { "airplane": "A81" } ] }
+                         ]}).pretty()                
+---***---
+
+
